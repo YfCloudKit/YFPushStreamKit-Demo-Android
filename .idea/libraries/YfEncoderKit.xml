@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="YfEncoderKit">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/YfEncoderKit.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
