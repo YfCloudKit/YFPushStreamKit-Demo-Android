@@ -24,8 +24,12 @@
         android:title="截图"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_set_filter"
-        android:title="滤镜"
+        android:id="@+id/action_set_beauty"
+        android:title="美颜"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_set_logo"
+        android:title="LOGO"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_enable_audio"
