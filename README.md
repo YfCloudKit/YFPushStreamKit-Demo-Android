@@ -8,7 +8,7 @@
 
 YfEncoderKit SDK是云帆加速推出的Android平台用于推流的软件开发工具包（SDK)，为您提供简单、便捷的开发接口，助您在基于 4.1 及以上版本的移动设备上实现直播推流功能。
 
-- [YfEncoderKit SDK下载地址](https://github.com/yfcloudStreamEngine/YfEncoderKit_Android_DEMO)
+- [YfEncoderKit SDK下载地址](https://github.com/YfCloudKit/YfKitLibrary)
 
 ### 功能特点
 ---
@@ -25,6 +25,7 @@ YfEncoderKit SDK是云帆加速推出的Android平台用于推流的软件开发
 - 支持推送主流分辨率视频，支持手动设置码率、帧率、缓存大小等配置
 - 支持推流异常后自动重连
 - 支持实时美颜
+- 支持faceu功能
 
 ### 运行环境
 ---
@@ -35,19 +36,18 @@ YfEncoderKit SDK是云帆加速推出的Android平台用于推流的软件开发
  允许滤镜模式  | Android 4.3及以上版本| 支持后台音频推流、硬编
 
 ### 下载并使用SDK
+支持自动集成和手动集成两种方式，如果您使用Gradle编译Apk，我们强烈推荐您使用自动接入方式配置库文件。
+集成方式参见[YfKitLibrary](https://github.com/YfCloudKit/YfKitLibrary "YfKitLibrary")。
+
 ---
 ### 1. 从github下载工程
-
-    SDK内容说明(推流SDK的完整下载包包含SDK、DOC、Demo三部分）：
-    - SDK目录：YfEncoderKit.jar、libffmpeg.so、libmuxer.so
-    - DOC目录：YFEncoderKit帮助文档.pdf、README.MD
-    - Demo:集成了推流sdk的所有功能示范
+[YfEncoderKit_Android_DEMO](https://github.com/YfCloudKit/YfEncoderKit_Android_DEMO "YfEncoderKit_Android_DEMO")集成了推流sdk的所有功能示范，可从github下载参考使用。
 
 ### 2、鉴权
 获取SDK使用许可的Token,在app启动的时候调用全局静态鉴权方法。
 
 ```
-    Authentication.AuthCallBack authCallBack = new Authentication.AuthCallBack() {
+    private YfAuthentication.AuthCallBack authCallBack = new YfAuthentication.AuthCallBack() {
         @Override
         public void onAuthenticateSuccess() {
             Log.d(TAG, "鉴权成功~！");
@@ -58,12 +58,12 @@ YfEncoderKit SDK是云帆加速推出的Android平台用于推流的软件开发
             Log.d(TAG, "鉴权失败啦：" + errorCode);
         }
     };
-Authentication.Authenticate(TOKEN, authCallBack);
+YfAuthentication.getInstance().authenticate(ACCESS_KEY,TOKEN, authCallBack);
 ```
 为了防止在鉴权的时候因为网络异常而鉴权失败，可以在恢复网络的时候确认一下是否鉴权成功，如果没有则再次发起鉴权。
     
 ```
-if(!Authentication.isAuthenticateSucceed()){
+if(!YfAuthentication.isAuthenticateSucceed()){
             //retry
         }
 ```
@@ -197,11 +197,11 @@ SDK区分允许滤镜（美颜）模式及不允许滤镜（美颜）模式，�
 
 ### 接口说明
 ---
-参考DOC目录里的YFEncoderKit帮助文档
+参考云帆加速官网[YfEncoderKit开发者文档](http://doc.yfcloud.com/index.php?s=/5&page_id=15 "YfEncoderKit开发者文档")
 
 ### 反馈和建议
 ---
-主页：云帆加速
+主页：[云帆加速](http://www.yfcloud.com/ "云帆加速")
 
 
 

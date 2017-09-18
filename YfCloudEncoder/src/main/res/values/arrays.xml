@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--private static final String[] m_item_names = {"tiara.mp3", "item0208.mp3", "einstein.mp3", "YellowEar.mp3", "PrincessCrown.mp3",
+            "Mood.mp3", "Deer.mp3", "BeagleDog.mp3", "item0501.mp3", "ColorCrown.mp3", "item0210.mp3", "HappyRabbi.mp3",
+            "item0204.mp3", "hartshorn.mp3"
+    };-->
+    <array name="ar">
+        <item>tiara.mp3</item>
+        <item>item0208.mp3</item>
+        <item>einstein.mp3</item>
+        <item>PrincessCrown.mp3</item>
+        <item>Mood.mp3</item>
+        <item>Deer.mp3</item>
+        <item>BeagleDog.mp3</item>
+        <item>item0501.mp3</item>
+        <item>ColorCrown.mp3</item>
+        <item>item0210.mp3</item>
+        <item>HappyRabbi.mp3</item>
+        <item>item0204.mp3</item>
+        <item>hartshorn.mp3</item>
+    </array>
+    <array name="ar_name">
+        <item>鲜花</item>
+        <item>鱼</item>
+        <item>爱因斯坦</item>
+        <item>皇冠</item>
+        <item>心情</item>
+        <item>鹿</item>
+        <item>狗</item>
+        <item>领结</item>
+        <item>斑斓</item>
+        <item>长颈鹿</item>
+        <item>兔子</item>
+        <item>兔子2</item>
+        <item>长颈鹿2</item>
+    </array>
+    <array name="filter_name">
+        <item>Crayon</item>
+        <item>Sketch</item>
+        <item>WhiteCat</item>
+        <item>Antique</item>
+        <item>Wave</item>
+        <item>Shake</item>
+    </array>
+
+    <array name="music_name">
+        <item>xiaoxingyun.mp3</item>
+        <item>creep.mp3</item>
+        <item>dongdongdong.mp3</item>
+        <item>lalala.mp3</item>
+        <item>zalebaba.mp3</item>
+    </array>
+    <array name="music_saved_name">
+        <item>小幸运.mp3</item>
+        <item>Creep.mp3</item>
+        <item>咚咚咚.mp3</item>
+        <item>LaLaLa.mp3</item>
+        <item>咋了爸爸.mp3</item>
+    </array>
+</resources>

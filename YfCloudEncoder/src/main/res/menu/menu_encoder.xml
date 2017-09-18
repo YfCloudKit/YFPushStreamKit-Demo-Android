@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".menu_app">
+    <item
+        android:id="@+id/action_start"
+        android:title="Start"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_stop"
+        android:title="Stop"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_torch"
+        android:title="闪光灯"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_switch"
+        android:title="切换摄像头"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_manual_focus"
+        android:title="手动/自动对焦"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_close_capture"
+        android:title="截图"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_set_beauty"
+        android:title="美颜"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_face_u"
+        android:title="FaceU"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_set_logo"
+        android:title="LOGO"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_enable_audio"
+        android:title="暂停/恢复音频推流"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_flip_camera"
+        android:title="前置镜像"
+
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_drop_strategy"
+        android:title="切换丢帧策略"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_show_data"
+        android:title="实时数据"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_show_history"
+        android:title="历史事件"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_audio_play"
+        android:title="开启/关闭声音监听"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_auto_adaptive_bitrate"
+        android:title="开启/关闭自适应码率"
+        app:showAsAction="ifRoom" />
+</menu>
