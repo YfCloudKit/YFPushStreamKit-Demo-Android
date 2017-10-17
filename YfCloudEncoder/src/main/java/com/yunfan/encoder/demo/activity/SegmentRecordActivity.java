@@ -577,7 +577,7 @@ public class SegmentRecordActivity extends LiveRecorderActivity {
 
 
     @Override
-    public void onInfo(int what, int arg1, int arg2, Object obj) {
+    public void onInfo(int what, double arg1, double arg2, Object obj) {
         switch (what) {
             case YfEncoderKit.INFO_FIRST_VIDEO_FRAME_AVAILABLE:
                 mVideoProgressView.setCurrentState(VideoProgressView.State.START);
@@ -591,7 +591,7 @@ public class SegmentRecordActivity extends LiveRecorderActivity {
                 mUIHandler.postDelayed(updateProgress, 100);
                 return;
             case YfEncoderKit.INFO_STOP_VIDEO_FRAME:
-                updateTotalTime(arg1);
+                updateTotalTime((int) arg1);
                 break;
         }
         super.onInfo(what, arg1, arg2, obj);

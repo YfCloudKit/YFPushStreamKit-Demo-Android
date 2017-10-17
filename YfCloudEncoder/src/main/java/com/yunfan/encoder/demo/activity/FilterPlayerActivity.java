@@ -34,17 +34,17 @@ import com.yunfan.encoder.demo.util.Log;
 import com.yunfan.encoder.demo.util.Util;
 import com.yunfan.encoder.demo.widget.YfController;
 import com.yunfan.encoder.demo.widget.YfPopupWindow;
+import com.yunfan.encoder.effect.filter.YfAntiqueFilter;
+import com.yunfan.encoder.effect.filter.YfCrayonFilter;
+import com.yunfan.encoder.effect.filter.YfSketchFilter;
+import com.yunfan.encoder.effect.filter.YfWhiteCatFilter;
 import com.yunfan.encoder.filter.BaseFilter;
 import com.yunfan.encoder.filter.FaceUnityFilter;
-import com.yunfan.encoder.filter.YfAntiqueFilter;
-import com.yunfan.encoder.filter.YfCrayonFilter;
 import com.yunfan.encoder.filter.YfFilterFactory;
 import com.yunfan.encoder.filter.YfGifFilter;
-import com.yunfan.encoder.filter.YfSketchFilter;
 import com.yunfan.encoder.filter.YfSoulDazzleFilter;
 import com.yunfan.encoder.filter.YfWaterMarkFilter;
 import com.yunfan.encoder.filter.YfWaveFilter;
-import com.yunfan.encoder.filter.YfWhiteCatFilter;
 import com.yunfan.encoder.filter.entity.TimeSection;
 import com.yunfan.encoder.widget.YfGlSurfaceView;
 import com.yunfan.encoder.widget.YfKitFactory;
@@ -629,28 +629,28 @@ public class FilterPlayerActivity extends AppCompatActivity implements YfControl
 
 
     private YfCrayonFilter createCrayonFilter(int filterIndex) {
-        YfCrayonFilter temp = mYfFilterFactory.createCrayonFilter();
+        YfCrayonFilter temp = new YfCrayonFilter();
         temp.setIndex(filterIndex);
         temp.setRenderInSpecificPts(true);
         return temp;
     }
 
     private YfWhiteCatFilter createWhiteCatFilter(int filterIndex) {
-        YfWhiteCatFilter temp = mYfFilterFactory.createWhiteCatFilter();
+        YfWhiteCatFilter temp = new YfWhiteCatFilter();
         temp.setIndex(filterIndex);
         temp.setRenderInSpecificPts(true);
         return temp;
     }
 
     private YfSketchFilter createSketchFilter(int filterIndex) {
-        YfSketchFilter temp = mYfFilterFactory.createSketchFilter();
+        YfSketchFilter temp = new YfSketchFilter();
         temp.setIndex(filterIndex);
         temp.setRenderInSpecificPts(true);
         return temp;
     }
 
     private YfAntiqueFilter createAntiqueFilter(int filterIndex) {
-        YfAntiqueFilter temp = mYfFilterFactory.createAntiqueFilter();
+        YfAntiqueFilter temp = new YfAntiqueFilter();
         temp.setIndex(filterIndex);
         temp.setRenderInSpecificPts(true);
         return temp;

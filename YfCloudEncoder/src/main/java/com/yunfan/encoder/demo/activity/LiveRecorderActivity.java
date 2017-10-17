@@ -42,11 +42,14 @@ import com.yunfan.encoder.demo.util.Log;
 import com.yunfan.encoder.demo.util.LogRecorder;
 import com.yunfan.encoder.demo.util.Util;
 import com.yunfan.encoder.demo.widget.ScaleGLSurfaceView;
-import com.yunfan.encoder.filter.AlphaBlendFilter;
+
+import com.yunfan.encoder.effect.filter.AlphaBlendFilter;
 import com.yunfan.encoder.filter.FaceUnityFilter;
 import com.yunfan.encoder.filter.YfBlurBeautyFilter;
 import com.yunfan.encoder.filter.YfFilterFactory;
 import com.yunfan.encoder.filter.YfWaterMarkFilter;
+import com.yunfan.encoder.interfaces.OnCameraCallback;
+import com.yunfan.encoder.interfaces.OnDrawFrameCallback;
 import com.yunfan.encoder.widget.RecordMonitor;
 import com.yunfan.encoder.widget.YfEncoderKit;
 
@@ -106,7 +109,7 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
     protected LogRecorder logRecorder = new LogRecorder(this);
     private Handler infoShower = new Handler();
     private int mCurrentBitrate, mCurrentBufferMs, mCurrentSpeed, mCurrentFPS, mAvgCostTimeMS;
-    private final int BEAUTY_INDEX = 1, LOGO_INDEX = 2, FACE_INDEX = 3,WATER_INDEX=4;
+    private final int BEAUTY_INDEX = 1, LOGO_INDEX = 2, FACE_INDEX = 3, WATER_INDEX = 4;
     private YfBlurBeautyFilter mBeautyFilter;
     private FaceUnityFilter mFaceUnityFilter;
     private YfWaterMarkFilter mYfWaterMarkFilter;
@@ -114,7 +117,7 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
     private int mCurrentGestureId;
     private AlphaBlendFilter mLogoFilter;
     private boolean mEnableAudioPlay;
-    private boolean mAutoAdaptiveBitrate = true;
+    private boolean mAutoAdaptiveBitrate = false;
     private static final String[] m_item_names = {"tiara.mp3", "item0208.mp3", "einstein.mp3", "YellowEar.mp3", "PrincessCrown.mp3",
             "Mood.mp3", "Deer.mp3", "BeagleDog.mp3", "item0501.mp3", "ColorCrown.mp3", "item0210.mp3", "HappyRabbi.mp3",
             "item0204.mp3", "hartshorn.mp3"
@@ -211,47 +214,78 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
 //                showBeautyPanel = !showBeautyPanel;
 //                break;
             case R.id.action_face_u:
-                if (!setFace) {
-                    if (mYfWaterMarkFilter == null) {
-                        try {
-                            mYfWaterMarkFilter = new YfFilterFactory.Factory(LiveRecorderActivity.this).createWaterMarkFilter();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                        mYfWaterMarkFilter.setIndex(WATER_INDEX);
-                        mYfWaterMarkFilter.setWaterMark(BitmapFactory.decodeResource(getResources(), R.mipmap.logo));
-                        int percent = 50;
-                        int padding = 50;
-                        float logoWidth = 454, logoHeight = 160;
-                        int width = PREVIEW_HEIGHT * percent / 100;
-                        int height = (int) (width * logoWidth / logoHeight);
-                        mYfWaterMarkFilter.setPosition(0, 0, width, height);
-                    }
-                    yfEncoderKit.addFilter(mYfWaterMarkFilter);
-                } else {
-                    yfEncoderKit.removeFilter(WATER_INDEX);
-                }
-                setFace = !setFace;
 //                if (!setFace) {
-//                    if (setBeauty) {//开启face u 则默认关闭原本的美颜
-//                        yfEncoderKit.removeFilter(BEAUTY_INDEX);
-//                        setBeauty = !setBeauty;
+//                    if (mYfWaterMarkFilter == null) {
+//                        try {
+//                            mYfWaterMarkFilter = new YfFilterFactory.Factory(LiveRecorderActivity.this).createWaterMarkFilter();
+//                        } catch (IllegalAccessException e) {
+//                            e.printStackTrace();
+//                        }
+//                        mYfWaterMarkFilter.setIndex(WATER_INDEX);
+//                        mYfWaterMarkFilter.setWaterMark(BitmapFactory.decodeResource(getResources(), R.mipmap.logo));
+//                        int percent = 50;
+//                        int padding = 50;
+//                        float logoWidth = 454, logoHeight = 160;
+//                        int width = PREVIEW_HEIGHT * percent / 100;
+//                        int height = (int) (width * logoWidth / logoHeight);
+//                        mYfWaterMarkFilter.setPosition(0, 0, width, height);
 //                    }
-//                    yfEncoderKit.addFilter(mFaceUnityFilter);
-//                    mFuChangeEffectBtn.setVisibility(View.VISIBLE);
-//                    mFuChangeGestureBtn.setVisibility(View.GONE);
-//                    mFuEnableBeautyBtn.setVisibility(View.VISIBLE);
-//                    mFuEnableEffectBtn.setVisibility(View.VISIBLE);
-//                    mFuEnableGestureBtn.setVisibility(View.VISIBLE);
+//                    yfEncoderKit.addFilter(mYfWaterMarkFilter);
 //                } else {
-//                    yfEncoderKit.removeFilter(FACE_INDEX);
-//                    mFuChangeEffectBtn.setVisibility(View.GONE);
-//                    mFuChangeGestureBtn.setVisibility(View.GONE);
-//                    mFuEnableBeautyBtn.setVisibility(View.GONE);
-//                    mFuEnableEffectBtn.setVisibility(View.GONE);
-//                    mFuEnableGestureBtn.setVisibility(View.GONE);
+//                    yfEncoderKit.removeFilter(WATER_INDEX);
 //                }
 //                setFace = !setFace;
+
+                if (!setFace) {
+                    if (setBeauty) {//开启face u 则默认关闭原本的美颜
+                        yfEncoderKit.removeFilter(BEAUTY_INDEX);
+                        setBeauty = !setBeauty;
+                    }
+                    yfEncoderKit.setCameraStateListener(new OnCameraCallback() {
+                        @Override
+                        public void onCameraOpened() {
+
+                        }
+
+                        @Override
+                        public void onCameraChanged() {
+                            mFaceUnityFilter.onCameraChanged(yfEncoderKit.isFrontCameraUsed());
+                        }
+
+                        @Override
+                        public void onCameraClosed() {
+
+                        }
+
+                        @Override
+                        public void onCameraFrameCallback(byte[] data, int width, int height) {
+                            mFaceUnityFilter.setCurrentFrame(data,width,height);
+                        }
+                    });
+                    yfEncoderKit.setOnDrawFrameListener(new OnDrawFrameCallback() {
+                        @Override
+                        public int onDrawFrame(int textureId, int width, int height) {
+                            int ret= mFaceUnityFilter.onDrawToTexture(textureId);
+                            yfEncoderKit.recycleCameraBuffer(mFaceUnityFilter.getConsumedFrame());
+                            return ret;
+                        }
+                    });
+                    yfEncoderKit.startCallbackPreviewFrame();
+//                    yfEncoderKit.addFilter(mFaceUnityFilter);
+                    mFuChangeEffectBtn.setVisibility(View.VISIBLE);
+                    mFuChangeGestureBtn.setVisibility(View.GONE);
+                    mFuEnableBeautyBtn.setVisibility(View.VISIBLE);
+                    mFuEnableEffectBtn.setVisibility(View.VISIBLE);
+                    mFuEnableGestureBtn.setVisibility(View.VISIBLE);
+                } else {
+                    yfEncoderKit.removeFilter(FACE_INDEX);
+                    mFuChangeEffectBtn.setVisibility(View.GONE);
+                    mFuChangeGestureBtn.setVisibility(View.GONE);
+                    mFuEnableBeautyBtn.setVisibility(View.GONE);
+                    mFuEnableEffectBtn.setVisibility(View.GONE);
+                    mFuEnableGestureBtn.setVisibility(View.GONE);
+                }
+                setFace = !setFace;
                 break;
             case R.id.action_set_logo:
                 if (!setLogo) {
@@ -318,6 +352,8 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
             case R.id.action_auto_adaptive_bitrate:
                 mAutoAdaptiveBitrate = !mAutoAdaptiveBitrate;
                 yfEncoderKit.setAdjustQualityAuto(mAutoAdaptiveBitrate, 300);
+                Toast.makeText(this, mAutoAdaptiveBitrate ? "自适应码率已" : "自适应码率已关闭",
+                        Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -338,6 +374,9 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
         if (yfEncoderKit != null) {
             yfEncoderKit.onPause();
         }
+        if(setFace&&mFaceUnityFilter!=null){
+            mFaceUnityFilter.onPause();
+        }
     }
 
     @Override
@@ -347,6 +386,9 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
             unregisterReceiver(receiver);
         }
         destroyRecorder();
+        if(setFace&&mFaceUnityFilter!=null){
+            mFaceUnityFilter.destroy();
+        }
     }
 
     private void toggleActionBar() {
@@ -576,7 +618,7 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
         yfEncoderKit.addFilter(mBeautyFilter);//默认打开滤镜
         setBeauty = true;
         seekBar0.setProgress(5);//预设美颜等级
-//        yfEncoderKit.setAdjustQualityAuto(mAutoAdaptiveBitrate, 300);//打开码率自适应，最低码率30
+        yfEncoderKit.setAdjustQualityAuto(mAutoAdaptiveBitrate, 300);//配置是否打开码率自适应
     }
 
     protected String getDefaultUrl() {
@@ -725,10 +767,10 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
     private String currentConnectedIP;
 
     @Override
-    public void onInfo(int what, int arg1, int arg2, Object obj) {
+    public void onInfo(int what, double arg1, double arg2, Object obj) {
         switch (what) {
             case YfEncoderKit.INFO_IP:
-                currentConnectedIP = intToIp(arg1);
+                currentConnectedIP = intToIp((int) arg1);
                 Log.d(TAG, "实际推流的IP地址:" + currentConnectedIP);
                 logRecorder.writeLog("IP:" + currentConnectedIP, false);
 //                new Thread(new Runnable() {
@@ -744,11 +786,11 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
                 logRecorder.writeLog("drop frames", false);
                 break;
             case YfEncoderKit.INFO_PUSH_SPEED:
-                mCurrentSpeed = arg1;
+                mCurrentSpeed = (int) arg1;
                 break;
             case YfEncoderKit.INFO_FRAME:
-                mCurrentFPS = arg1;
-                mAvgCostTimeMS = arg2;
+                mCurrentFPS = (int) arg1;
+                mAvgCostTimeMS = (int) arg2;
                 break;
             case YfEncoderKit.INFO_PREVIEW_SIZE_CHANGED:
                 Log.d(TAG, "on preview size changed:" + arg1 + "," + arg2);
@@ -776,10 +818,11 @@ public class LiveRecorderActivity extends AppCompatActivity implements RecordMon
                 }
                 break;
             case YfEncoderKit.INFO_BITRATE_CHANGED:
-                mCurrentBitrate = arg1;
+                android.util.Log.d(TAG, "INFO_BITRATE_CHANGED: " + arg1);
+                mCurrentBitrate = (int) arg1;
                 break;
             case YfEncoderKit.INFO_CURRENT_BUFFER:
-                mCurrentBufferMs = arg1;
+                mCurrentBufferMs = (int) arg1;
                 break;
         }
     }

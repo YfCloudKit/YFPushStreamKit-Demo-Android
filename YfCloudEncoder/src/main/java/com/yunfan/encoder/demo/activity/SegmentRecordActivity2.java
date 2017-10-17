@@ -357,7 +357,7 @@ public class SegmentRecordActivity2 extends LiveRecorderActivity implements YfVo
     }
 
     @Override
-    public void onInfo(int what, int arg1, int arg2, Object obj) {
+    public void onInfo(int what, double arg1, double arg2, Object obj) {
         super.onInfo(what, arg1, arg2, obj);
 //        Log.d(TAG, "onInfo: " + what);
         switch (what) {

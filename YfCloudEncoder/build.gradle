@@ -37,13 +37,12 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
 //    compile project(':YfAuthentication')
 //    compile project(':yfEncoderKit')
-////    compile project(':YfKit')
+//    compile project(':YfKit')
 //    compile project(':YfMediaPlayer')
-//    compile project(':YfAuthentication')
-    compile 'com.github.YfCloudKit.YfKitLibrary:FFMpeg-decoder-encoder-https:-SNAPSHOT'
-    compile 'com.github.YfCloudKit.YfKitLibrary:MuxerLib-editor:-SNAPSHOT'
-    compile 'com.github.YfCloudKit.YfKitLibrary:YfAR:-SNAPSHOT'
-    compile 'com.github.YfCloudKit.YfKitLibrary:YfAuthentication:-SNAPSHOT'
-    compile 'com.github.YfCloudKit.YfKitLibrary:YfEncoderKit:-SNAPSHOT'
-    compile 'com.github.YfCloudKit.YfKitLibrary:YfMediaPlayer:-SNAPSHOT'
+    compile 'com.github.YfCloudKit.YfKitLibrary:FFMpeg-decoder-encoder-https:v1.0.3'
+    compile 'com.github.YfCloudKit.YfKitLibrary:MuxerLib-stream:v1.0.3'
+    compile 'com.github.YfCloudKit.YfKitLibrary:YfAR:v1.0.3'
+    compile 'com.github.YfCloudKit.YfKitLibrary:YfAuthentication:v1.0.3'
+    compile 'com.github.YfCloudKit.YfKitLibrary:YfEncoderKit:v1.0.3'
+    compile 'com.github.YfCloudKit.YfKitLibrary:YfMediaPlayer:v1.0.3'
 }
